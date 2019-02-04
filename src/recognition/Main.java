@@ -21,6 +21,23 @@ public class Main {
 
     public static void main(String[] args) {
         int[] a0 = readInput();
+        int[] a1 = calculateOutput(a0, w, b);
+    }
+
+    private static int[] calculateOutput(int[] a0, int[][] w, int[] b) {
+        int[] a1 = new int[10];
+
+        for(int i = 0; i < a1.length; ++i){
+            a1[i] = 0;
+            for(int j = 0; j < a0.length; ++j){
+                a1[i] += (a0[j] * w[i][j]);
+            }
+            a1[i] += b[i];
+        }
+
+        System.out.println("\nOutput:\n" + Arrays.toString(a1) + "\n");
+
+        return a1;
     }
 
     private static int[] readInput() {
