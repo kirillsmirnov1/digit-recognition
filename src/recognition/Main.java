@@ -10,6 +10,7 @@ public class Main {
     public static void main(String[] args) {
         int[] a = new int[9];
         Scanner scanner = new Scanner(System.in);
+        int result = 0;
 
         System.out.println("Input 3x3 grid ('_' for white, any other for blue):");
 
@@ -20,6 +21,13 @@ public class Main {
             }
         }
 
-        System.out.println(Arrays.toString(a));
+        System.out.println("\nInput:\n" + Arrays.toString(a) + "\n");
+
+        for(int i = 0; i < 9; ++i){
+            result += (a[i] * w[i]);
+        }
+        result += b;
+
+        System.out.println("This is number " + (result < 0 ? "1" : "0"));
     }
 }
