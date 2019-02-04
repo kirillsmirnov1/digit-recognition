@@ -22,6 +22,18 @@ public class Main {
     public static void main(String[] args) {
         int[] a0 = readInput();
         int[] a1 = calculateOutput(a0, w, b);
+        findResult(a1);
+    }
+
+    private static void findResult(int[] a1) {
+        int answer = 0;
+
+        for(int i = 1; i < a1.length; ++i){
+            if(a1[i] > a1[answer])
+                answer = i;
+        }
+
+        System.out.println("This number is " + answer);
     }
 
     private static int[] calculateOutput(int[] a0, int[][] w, int[] b) {
