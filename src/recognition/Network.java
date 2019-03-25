@@ -16,10 +16,12 @@ public class Network {
     // Веса между слоями
     private double[][][] weights;
 
+    // Конструктор по-умолчанию создает НС с двумя слоями по 15 и 10 нейронов соответственно
     public Network(int numberOfLayers){
         this(new int[] {15, 10});
     }
 
+    // Конструктор принимает на вход размеры слоев
     public Network(int[] layerSizes){
         Random random = new Random();
 
