@@ -17,7 +17,7 @@ public class Network {
     private double[][][] weights;
 
     // Конструктор по-умолчанию создает НС с двумя слоями по 15 и 10 нейронов соответственно
-    public Network(int numberOfLayers){
+    public Network(){
         this(new int[] {15, 10});
     }
 
@@ -30,11 +30,6 @@ public class Network {
 
         // Инициализирую пустой массив слоёв
         layers = new double[numberOfLayers][];
-
-        // Инициализирую каждый слой
-        for(int layer = 0; layer < numberOfLayers; ++layer){
-            layers[layer] = new double[layerSizes[layer]];
-        }
 
         // Инициализирую массив весов
         weights = new double[numberOfLayers - 1][][];
