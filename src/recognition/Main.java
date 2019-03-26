@@ -40,7 +40,7 @@ public class Main {
     private static double[] readInput() {
         double[] a = new double[15];
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Input 5x3 grid ('_' for white, any other for blue):");
+        System.out.println("\nInput 5x3 grid ('_' for white, any other for blue):");
         for(int i=0; i < 5; ++i){
             String str = scanner.nextLine();
             for(int j = 0; j < 3; ++j){
