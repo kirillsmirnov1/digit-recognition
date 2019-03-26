@@ -17,6 +17,9 @@ public class Network {
     // Веса между слоями
     private double[][][] weights;
 
+    // Вывод промежуточных результатов в консоль
+    private boolean outputMidResults = true;
+
     // Конструктор по-умолчанию создает НС с двумя слоями по 15 и 10 нейронов соответственно
     public Network(){
         this(new int[] {15, 10});
@@ -67,7 +70,9 @@ public class Network {
             }
         }
 
-        System.out.println("Output layer:\n" + Arrays.toString(layers[numberOfLayers - 1]));
+        if(outputMidResults){
+            System.out.println("Output layer:\n" + Arrays.toString(layers[numberOfLayers - 1]));
+        }
 
         return layers[numberOfLayers-1];
     }
@@ -103,7 +108,9 @@ public class Network {
             }
         }
 
-        System.out.println("\nDistances:\n" + Arrays.toString(distance));
+        if(outputMidResults){
+            System.out.println("\nDistances:\n" + Arrays.toString(distance));
+        }
 
         // Возвращаю самое похожее число
         return nearestResult;
