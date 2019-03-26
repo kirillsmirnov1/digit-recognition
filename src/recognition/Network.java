@@ -46,7 +46,8 @@ public class Network {
         }
     }
 
-    public double[] calculateOutput(double[] input){
+    // Расчёт выходного слоя от входного
+    private double[] calculateOutput(double[] input){
         if(input.length != layerSizes[0])
             throw new IllegalArgumentException("Wrong input size");
 
