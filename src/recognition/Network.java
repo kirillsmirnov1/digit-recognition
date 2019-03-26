@@ -14,6 +14,9 @@ public class Network {
     // Слои нейронов
     private double[][] layers;
 
+    // Отличие последнего слоя от желаемого результата
+    private double[] lastLayerDifference;
+
     // Веса между слоями
     private double[][][] weights;
 
@@ -114,5 +117,14 @@ public class Network {
 
         // Возвращаю самое похожее число
         return nearestResult;
+    }
+
+    // Расчёт разницы последнего слоя нейронов и образца
+    private void calculateDifference(int number) {
+        lastLayerDifference = new double[layerSizes[numberOfLayers-1]];
+
+        for(int i = 0; i < lastLayerDifference.length; ++i){
+            lastLayerDifference[i] = Numbers.idealOutputNumbers[number][i] - layers[numberOfLayers-1][i];
+        }
     }
 }
