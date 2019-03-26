@@ -71,4 +71,41 @@ public class Network {
 
         return layers[numberOfLayers-1];
     }
+
+    // Подбор результата
+    public int guessTheResult(double[] input){
+        int lastLayer = numberOfLayers - 1;
+
+        // Самое похожее число
+        int nearestResult = 0;
+        // Расстояние до этого числа
+        double smallestDistance = Integer.MAX_VALUE;
+
+        // Все расстояния
+        double[] distance = new double[Numbers.idealOutputNumbers.length];
+
+        // Считаем последний слой
+        calculateOutput(input);
+
+        // Сверяем каждое число
+        for(int number = 0; number < Numbers.idealOutputNumbers.length; ++number){
+            double localDistance = 0d;
+
+            for (int neuron = 0; neuron < layerSizes[lastLayer]; ++neuron){
+                localDistance += Math.pow(layers[lastLayer][neuron] - Numbers.idealOutputNumbers[number][neuron], 2);
+            }
+
+            distance[number] = localDistance;
+
+            if(localDistance < smallestDistance){
+                smallestDistance = localDistance;
+                nearestResult = number;
+            }
+        }
+
+        System.out.println("\nDistances:\n" + Arrays.toString(distance));
+
+        // Возвращаю самое похожее число
+        return nearestResult;
+    }
 }
