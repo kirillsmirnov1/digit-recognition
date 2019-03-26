@@ -15,21 +15,21 @@ public class Main {
             System.out.print("Your choice: ");
 
             switch(scanner.nextInt()){
-                case 1:{
+                case 1:{ // ???????? ????
                     // TODO
                     System.out.println("\nTODO");
                     break;
                 }
-                case 2:{
+                case 2:{ // ???????? ????????? ?????
                     // TODO
                     System.out.println("\nTODO");
                     break;
                 }
-                case 3:{
+                case 3:{ // ?????
                     System.out.println("\nBye bye!");
                     System.exit(0);
                 }
-                default:
+                default: // ???????????? ????
                     System.out.println("\nWrong input");
             }
         }
