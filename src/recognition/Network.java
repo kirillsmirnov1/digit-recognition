@@ -119,6 +119,23 @@ public class Network {
         return nearestResult;
     }
 
+    // Обучение сети
+    public void teachNetwork(int iterations){
+        outputMidResults = false;
+
+        for(int iteration = 0; iteration < iterations; ++iteration){
+
+            for(int number = 0; number < Numbers.idealInputNumbers.length; ++number){
+                calculateOutput(Numbers.idealInputNumbers[number]);
+                calculateDifference(number);
+                // TODO bp
+            }
+
+        }
+
+        outputMidResults = true;
+    }
+
     // Расчёт разницы последнего слоя нейронов и образца
     private void calculateDifference(int number) {
         lastLayerDifference = new double[layerSizes[numberOfLayers-1]];
