@@ -1,5 +1,6 @@
 package recognition;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class Network {
@@ -65,6 +66,8 @@ public class Network {
                 }
             }
         }
+
+        System.out.println("Output layer:\n" + Arrays.toString(layers[numberOfLayers - 1]));
 
         return layers[numberOfLayers-1];
     }
