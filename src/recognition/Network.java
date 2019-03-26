@@ -45,4 +45,26 @@ public class Network {
             }
         }
     }
+
+    public double[] calculateOutput(double[] input){
+        if(input.length != layerSizes[0])
+            throw new IllegalArgumentException("Wrong input size");
+
+        layers[0] = input;
+
+        // Инициализирую каждый слой
+        for(int layer = 1; layer < numberOfLayers; ++layer){
+            layers[layer] = new double[layerSizes[layer]];
+        }
+
+        for(int midLayer = 0; midLayer < weights.length; ++midLayer){
+            for(int rightNeuron = 0; rightNeuron < layers[midLayer+1].length; ++rightNeuron){
+                for(int leftNeuron = 0; leftNeuron < layers[midLayer].length; ++leftNeuron){
+                    layers[midLayer+1][rightNeuron] += layers[midLayer][leftNeuron] * weights[midLayer][leftNeuron][rightNeuron];
+                }
+            }
+        }
+
+        return layers[numberOfLayers-1];
+    }
 }
