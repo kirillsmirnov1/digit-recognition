@@ -5,6 +5,9 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
+
+    private static final String NETWORK_OBJECT_FILENAME = "NetworkObj.ser";
+
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
@@ -56,7 +59,7 @@ public class Main {
 
     // Remove network serialized file
     private static void removeNetworkFile(){
-        File file = new File("NetworkObj.ser");
+        File file = new File(NETWORK_OBJECT_FILENAME);
         file.delete();
     }
 
@@ -65,7 +68,7 @@ public class Main {
         Network n;
 
         try{
-            FileInputStream fileInputStream = new FileInputStream("NetworkObj.ser");
+            FileInputStream fileInputStream = new FileInputStream(NETWORK_OBJECT_FILENAME);
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
             n = (Network) objectInputStream.readObject();
             objectInputStream.close();
@@ -83,7 +86,7 @@ public class Main {
     // Save network to file
     private static void writeNetworkFile(Network network) {
         try {
-            FileOutputStream fileOutputStream = new FileOutputStream("NetworkObj.ser");
+            FileOutputStream fileOutputStream = new FileOutputStream(NETWORK_OBJECT_FILENAME);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
             objectOutputStream.writeObject(network);
             objectOutputStream.flush();
