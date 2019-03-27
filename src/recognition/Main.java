@@ -18,8 +18,9 @@ public class Main {
             System.out.println("1. Teach the network");
             System.out.println("2. Guess a number");
             System.out.println("3. Test network on ideal numbers");
-            System.out.println("4. Forget the network");
-            System.out.println("5. Exit");
+            System.out.println("4. Save the network");
+            System.out.println("5. Forget the network");
+            System.out.println("6. Exit");
             System.out.print("Your choice: ");
 
             switch(scanner.nextInt()){
@@ -39,14 +40,18 @@ public class Main {
                     }
                     break;
                 }
-                case 4:{ // Forget the network
+                case 4:{ // Saving the network
+                    writeNetworkFile(network);
+                    break;
+                }
+                case 5:{ // Forget the network
                     System.out.println("\nForgetting the network..");
                     network = new Network();
                     removeNetworkFile();
                     System.out.println("Network successfully forgotten");
                     break;
                 }
-                case 5:{ // Exit
+                case 6:{ // Exit
                     writeNetworkFile(network);
                     System.out.println("\nBye bye!");
                     System.exit(0);
