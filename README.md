@@ -6,9 +6,11 @@ Consists of several stages which are stored on corresponding branches.
 
 # <u>[Stage 1](https://hyperskill.org/projects/4/stages/15/implement)</u>
 
-Distinguish zeros from ones.
+Can distinguish zeros from ones.
 
 Nine input neurons, one output neuron. Weights and bias are constant.
+
+Console input.
 
 ![](https://ucarecdn.com/f9ebdf3d-ab90-4bcf-b07d-c563eeac288d/)
 
