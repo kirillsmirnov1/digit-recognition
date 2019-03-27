@@ -1,9 +1,6 @@
 package recognition;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -18,7 +15,8 @@ public class Main {
             System.out.println("1. Teach the network");
             System.out.println("2. Guess a number");
             System.out.println("3. Test network on ideal numbers");
-            System.out.println("4. Exit");
+            System.out.println("4. Forget the network");
+            System.out.println("5. Exit");
             System.out.print("Your choice: ");
 
             switch(scanner.nextInt()){
@@ -38,7 +36,14 @@ public class Main {
                     }
                     break;
                 }
-                case 4:{ // Exit
+                case 4:{ // Forget the network
+                    System.out.println("\nForgetting the network..");
+                    network = new Network();
+                    removeNetwork();
+                    System.out.println("Network successfully forgotten");
+                    break;
+                }
+                case 5:{ // Exit
                     saveNetwork(network);
                     System.out.println("\nBye bye!");
                     System.exit(0);
@@ -47,6 +52,12 @@ public class Main {
                     System.out.println("\nWrong input");
             }
         }
+    }
+
+    // Remove network serialized file
+    private static void removeNetwork(){
+        File file = new File("NetworkObj.ser");
+        file.delete();
     }
 
     // Read network from file
