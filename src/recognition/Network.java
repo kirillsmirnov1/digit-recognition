@@ -99,8 +99,9 @@ public class Network {
         for(int number = 0; number < Numbers.idealOutputNumbers.length; ++number){
             double localDistance = 0d;
 
+            calculateDifference(number);
             for (int neuron = 0; neuron < layerSizes[lastLayer]; ++neuron){
-                localDistance += Math.pow(layers[lastLayer][neuron] - Numbers.idealOutputNumbers[number][neuron], 2); // TODO использовать calculate difference
+                localDistance += Math.pow(lastLayerDifference[neuron], 2);
             }
 
             distance[number] = localDistance;
