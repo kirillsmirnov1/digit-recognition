@@ -67,9 +67,14 @@ public class Network {
 
         for(int midLayer = 0; midLayer < weights.length; ++midLayer){
             for(int rightNeuron = 0; rightNeuron < layers[midLayer+1].length; ++rightNeuron){
+
+                // Значение нейрона справа -- сумма произведения нейронов слева на соответствующие веса
                 for(int leftNeuron = 0; leftNeuron < layers[midLayer].length; ++leftNeuron){
                     layers[midLayer+1][rightNeuron] += layers[midLayer][leftNeuron] * weights[midLayer][leftNeuron][rightNeuron];
                 }
+
+                // Нормализация нейрона
+                layers[midLayer+1][rightNeuron] = sigmoid(layers[midLayer+1][rightNeuron]);
             }
         }
 
@@ -78,6 +83,11 @@ public class Network {
         }
 
         return layers[numberOfLayers-1];
+    }
+
+    // Нормализация
+    private double sigmoid(double v) {
+        return 1d / (1d + Math.exp(-v));
     }
 
     // Подбор результата
