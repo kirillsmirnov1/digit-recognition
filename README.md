@@ -1,5 +1,6 @@
 # Digit Recognition
 
-Project: Digit Recognition
+[Hyperskill](hyperskill.org) Neural Network Digit Recognition project.
 
-Go to the *src* directory, change *Main.java* and put your *.java* file(s) in it.
+Consists of several stages.
+
