@@ -29,4 +29,17 @@ public class Numbers {
             {0, 0, 0, 0, 0, 0, 0, 0, 1, 0}, // 8
             {0, 0, 0, 0, 0, 0, 0, 0, 0, 1}  // 9
     };
+
+    public static String getIdealNumber(int number){
+        StringBuilder result = new StringBuilder();
+
+        for(int i = 0; i < idealInputNumbers[number].length; ++i){
+            if(i % 3 == 0)
+                result.append("\n");
+
+            result.append(idealInputNumbers[number][i] == 1 ? 'x' : '_');
+        }
+
+        return result.toString();
+    }
 }
