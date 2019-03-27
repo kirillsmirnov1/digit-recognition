@@ -14,14 +14,14 @@ public class Main {
         Network network = readNetworkFile();
 
         while(true){
-            System.out.println("\nWhat do you want?");
+            System.out.println("\nWhat do you want?\n");
             System.out.println("1. Teach the network");
             System.out.println("2. Guess a number");
             System.out.println("3. Test network on ideal numbers");
             System.out.println("4. Save the network");
             System.out.println("5. Forget the network");
             System.out.println("6. Exit");
-            System.out.print("Your choice: ");
+            System.out.print("\nYour choice: ");
 
             switch(scanner.nextInt()){
                 case 1:{ // Teaching network
