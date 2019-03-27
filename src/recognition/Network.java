@@ -3,6 +3,7 @@ package recognition;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Random;
+import java.util.stream.IntStream;
 
 public class Network implements Serializable {
 
@@ -70,7 +71,10 @@ public class Network implements Serializable {
         }
 
         if(outputMidResults){
-            System.out.println("Output layer:\n" + Arrays.toString(layers[numberOfLayers - 1]));
+            System.out.println("Output layer:");
+            IntStream.range(0, 10).forEach(x -> System.out.printf("%2d  ", x));
+            System.out.println();
+            Arrays.stream(layers[numberOfLayers - 1]).mapToInt(x -> (int)(100*x)).forEach(x -> System.out.printf("%2d  ", x));
         }
 
         return layers[numberOfLayers-1];
