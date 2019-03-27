@@ -8,7 +8,7 @@ public class Main {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-        Network network = readNetwork();
+        Network network = readNetworkFile();
 
         while(true){
             System.out.println("\nWhat do you want?");
@@ -39,12 +39,12 @@ public class Main {
                 case 4:{ // Forget the network
                     System.out.println("\nForgetting the network..");
                     network = new Network();
-                    removeNetwork();
+                    removeNetworkFile();
                     System.out.println("Network successfully forgotten");
                     break;
                 }
                 case 5:{ // Exit
-                    saveNetwork(network);
+                    writeNetworkFile(network);
                     System.out.println("\nBye bye!");
                     System.exit(0);
                 }
@@ -55,13 +55,13 @@ public class Main {
     }
 
     // Remove network serialized file
-    private static void removeNetwork(){
+    private static void removeNetworkFile(){
         File file = new File("NetworkObj.ser");
         file.delete();
     }
 
     // Read network from file
-    private static Network readNetwork() {
+    private static Network readNetworkFile() {
         Network n;
 
         try{
@@ -81,7 +81,7 @@ public class Main {
     }
 
     // Save network to file
-    private static void saveNetwork(Network network) {
+    private static void writeNetworkFile(Network network) {
         try {
             FileOutputStream fileOutputStream = new FileOutputStream("NetworkObj.ser");
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
