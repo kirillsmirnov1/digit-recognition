@@ -1,6 +1,8 @@
 package recognition;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -9,7 +11,7 @@ public class Main {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-        Network network = new Network();
+        Network network = readNetwork();
 
         while(true){
             System.out.println("\nWhat do you want?");
@@ -36,6 +38,26 @@ public class Main {
                     System.out.println("\nWrong input");
             }
         }
+    }
+
+    // Считывание сети из файла
+    private static Network readNetwork() {
+        Network n;
+
+        try{
+            FileInputStream fileInputStream = new FileInputStream("NetworkObj.ser");
+            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+            n = (Network) objectInputStream.readObject();
+            objectInputStream.close();
+            fileInputStream.close();
+
+            System.out.println("Network is ready!");
+
+        } catch (Exception e){
+            System.out.println("Error reading network\nGenerating empty");
+            n = new Network();
+        }
+        return n;
     }
 
     // Сохранение сети в файл
