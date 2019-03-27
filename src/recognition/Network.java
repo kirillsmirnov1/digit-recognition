@@ -20,6 +20,9 @@ public class Network {
     // Веса между слоями
     private double[][][] weights;
 
+    // Коэффициент обучения
+    private double n = 0.5;
+
     // Вывод промежуточных результатов в консоль
     private boolean outputMidResults = true;
 
@@ -119,21 +122,40 @@ public class Network {
 
     // Обучение сети
     public void teachNetwork(int iterations){
+
+        System.out.println("\nTeaching network...");
+
         outputMidResults = false;
 
         for(int iteration = 0; iteration < iterations; ++iteration){
 
             double[][][] deltaWeights = initWeightMatrix(false);
 
+            // Собираю дельту весов с каждого варианта входных данных
             for(int number = 0; number < Numbers.idealInputNumbers.length; ++number){
                 calculateOutput(Numbers.idealInputNumbers[number]);
                 calculateDifference(number);
-                // TODO bp
+
+                // Только для этой стадии
+                // Когда будет больше одного слоя, обучение будет другим
+                for(int leftNeuron = 0; leftNeuron < layerSizes[0]; ++leftNeuron){
+                    for(int rightNeuron = 0; rightNeuron < layerSizes[1]; ++rightNeuron){
+                        deltaWeights[0][leftNeuron][rightNeuron] += n * layers[0][leftNeuron] * lastLayerDifference[rightNeuron];
+                    }
+                }
+            }
+
+            for(int leftNeuron = 0; leftNeuron < layerSizes[0]; ++leftNeuron){
+                for(int rightNeuron = 0; rightNeuron < layerSizes[1]; ++rightNeuron) {
+                    weights[0][leftNeuron][rightNeuron] += deltaWeights[0][leftNeuron][rightNeuron] / Numbers.idealInputNumbers.length;
+                }
             }
 
         }
 
         outputMidResults = true;
+
+        System.out.println("\nTeaching finished!");
     }
 
     // Создает пустую или заполненную случайным числами матрицу весов

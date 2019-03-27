@@ -18,8 +18,7 @@ public class Main {
 
             switch(scanner.nextInt()){
                 case 1:{ // Обучение сети
-                    // TODO
-                    System.out.println("\nTODO");
+                    network.teachNetwork(1000);
                     break;
                 }
                 case 2:{ // Отгадать введённый номер
