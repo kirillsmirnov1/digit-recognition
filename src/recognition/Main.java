@@ -1,5 +1,7 @@
 package recognition;
 
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -26,12 +28,30 @@ public class Main {
                     break;
                 }
                 case 3:{ // Выход
+                    saveNetwork(network);
                     System.out.println("\nBye bye!");
                     System.exit(0);
                 }
                 default: // Некорректный ввод
                     System.out.println("\nWrong input");
             }
+        }
+    }
+
+    // Сохранение сети в файл
+    private static void saveNetwork(Network network) {
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream("NetworkObj.ser");
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(network);
+            objectOutputStream.flush();
+            objectOutputStream.close();
+            fileOutputStream.close();
+
+            System.out.println("\nNetwork saved");
+        } catch (Exception e){
+            System.out.println("\nError saving network");
+            e.printStackTrace();
         }
     }
 
