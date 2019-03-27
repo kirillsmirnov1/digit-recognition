@@ -36,9 +36,6 @@ public class Network {
         this.layerSizes = layerSizes;
         numberOfLayers = layerSizes.length;
 
-        // Инициализирую пустой массив слоёв
-        layers = new double[numberOfLayers][];
-
         // Инициализирую массив весов
         weights = initWeightMatrix(true);
     }
@@ -47,6 +44,9 @@ public class Network {
     private double[] calculateOutput(double[] input){
         if(input.length != layerSizes[0])
             throw new IllegalArgumentException("Wrong input size");
+
+        // Инициализирую пустой массив слоёв
+        layers = new double[numberOfLayers][];
 
         layers[0] = input;
 
