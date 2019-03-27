@@ -32,3 +32,4 @@ git.properties
 
 # Dataset files
 *.txt
+*.ser
