@@ -30,8 +30,6 @@ public class Network {
 
     // Конструктор принимает на вход размеры слоев
     public Network(int[] layerSizes){
-        Random random = new Random();
-
         this.layerSizes = layerSizes;
         numberOfLayers = layerSizes.length;
 
@@ -39,18 +37,7 @@ public class Network {
         layers = new double[numberOfLayers][];
 
         // Инициализирую массив весов
-        weights = new double[numberOfLayers - 1][][];
-
-        // Заполняю веса случайными значениями
-        for(int midLayer = 0; midLayer < numberOfLayers - 1; ++midLayer){
-            weights[midLayer] = new double[layerSizes[midLayer]][layerSizes[midLayer+1]];
-
-            for(int i = 0; i < layerSizes[midLayer]; ++i){
-                for(int j = 0; j < layerSizes[midLayer+1]; ++j){
-                    weights[midLayer][i][j] = random.nextGaussian();
-                }
-            }
-        }
+        weights = initWeightMatrix(true);
     }
 
     // Расчёт выходного слоя от входного
@@ -136,6 +123,8 @@ public class Network {
 
         for(int iteration = 0; iteration < iterations; ++iteration){
 
+            double[][][] deltaWeights = initWeightMatrix(false);
+
             for(int number = 0; number < Numbers.idealInputNumbers.length; ++number){
                 calculateOutput(Numbers.idealInputNumbers[number]);
                 calculateDifference(number);
@@ -145,6 +134,24 @@ public class Network {
         }
 
         outputMidResults = true;
+    }
+
+    // Создает пустую или заполненную случайным числами матрицу весов
+    private double[][][] initWeightMatrix(boolean needNumbers) {
+        double[][][] w = new double[numberOfLayers - 1][][];
+        Random random = new Random();
+
+        for(int midLayer = 0; midLayer < numberOfLayers - 1; ++midLayer){
+            w[midLayer] = new double[layerSizes[midLayer]][layerSizes[midLayer+1]];
+
+            for(int i = 0; i < layerSizes[midLayer]; ++i){
+                for(int j = 0; j < layerSizes[midLayer+1]; ++j){
+                    w[midLayer][i][j] = needNumbers ? random.nextGaussian() : 0d;
+                }
+            }
+        }
+
+        return w;
     }
 
     // Расчёт разницы последнего слоя нейронов и образца
