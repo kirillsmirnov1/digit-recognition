@@ -35,6 +35,14 @@ public class Network implements Serializable {
 
     // Generate network with given layers sizes
     public Network(int[] layerSizes){
+        if(layerSizes == null           // Sizes array must contain something
+           || layerSizes.length < 2     // Actually, at least two values
+           || Arrays.stream(layerSizes)
+                .filter(x -> x <= 0)    // And they must be bigger than zero
+                .count() > 0){
+            throw new IllegalArgumentException("Wrong layer sizes");
+        }
+
         this.layerSizes = layerSizes;
         numberOfLayers = layerSizes.length;
 
