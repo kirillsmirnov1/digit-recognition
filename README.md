@@ -24,3 +24,16 @@ Weights and biases are still set.
 
 ![](https://ucarecdn.com/38618c71-71bc-4b6e-a6a1-280233b03733/)
 
+# <u>[Stage 3](https://hyperskill.org/projects/4/stages/17/implement)</u>
+
+Same input and output as in Stage 2.
+
+Console UI.
+
+![](C:\Users\Nokeya\Documents\docsSmirnov\pr\digit-recognition\res\UI.PNG)
+
+Network can learn to distinguish numbers. Using «Delta rule» and «Sigmoid function».
+
+![](C:\Users\Nokeya\Documents\docsSmirnov\pr\digit-recognition\res\got9.PNG)
+
+Network is serializable.
