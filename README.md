@@ -30,10 +30,10 @@ Same input and output as in Stage 2.
 
 Console UI.
 
-![](C:\Users\Nokeya\Documents\docsSmirnov\pr\digit-recognition\res\UI.PNG)
+![](https://github.com/kirillsmirnov1/digit-recognition/blob/master/res/UI.PNG)
 
 Network can learn to distinguish numbers. Using «Delta rule» and «Sigmoid function».
 
-![](C:\Users\Nokeya\Documents\docsSmirnov\pr\digit-recognition\res\got9.PNG)
+![](https://github.com/kirillsmirnov1/digit-recognition/blob/master/res/got9.PNG)
 
 Network is serializable.
