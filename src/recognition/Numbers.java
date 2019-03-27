@@ -1,8 +1,9 @@
 package recognition;
 
-// Класс для работы с числами
+// Class fo working with input and output numbers
 public class Numbers {
-    // Образцы входных данных
+    // Ideal input neuron values
+    // The input itself is double, so those numbers in double too
     public static final double[][] idealInputNumbers = {
             { 1,  1,  1,  1,  0,  1,  1,  0,  1,  1,  0,  1,  1,  1,  1}, // 0
             { 0,  1,  0,  0,  1,  0,  0,  1,  0,  0,  1,  0,  0,  1,  0}, // 1
@@ -16,7 +17,7 @@ public class Numbers {
             { 1,  1,  1,  1,  0,  1,  1,  1,  1,  0,  0,  1,  1,  1,  1}  // 9
     };
 
-    // Образцы выходных данных
+    // Ideal output neuron values
     public static final double[][] idealOutputNumbers = {
             {1, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // 0
             {0, 1, 0, 0, 0, 0, 0, 0, 0, 0}, // 1
@@ -30,6 +31,7 @@ public class Numbers {
             {0, 0, 0, 0, 0, 0, 0, 0, 0, 1}  // 9
     };
 
+    // Ideal input as string
     public static String getIdealNumber(int number){
         StringBuilder result = new StringBuilder();
 

@@ -17,20 +17,20 @@ public class Main {
             System.out.println("\nWhat do you want?");
             System.out.println("1. Teach the network");
             System.out.println("2. Guess a number");
-            System.out.println("3. Test on ideal numbers");
+            System.out.println("3. Test network on ideal numbers");
             System.out.println("4. Exit");
             System.out.print("Your choice: ");
 
             switch(scanner.nextInt()){
-                case 1:{ // Обучение сети
+                case 1:{ // Teaching network
                     network.teachNetwork(1000);
                     break;
                 }
-                case 2:{ // Отгадать введённый номер
+                case 2:{ // Guess number
                     System.out.println("\nLooks like: " + network.guessTheResult(readInput()) + "\n");
                     break;
                 }
-                case 3:{
+                case 3:{ // Test network on ideal numbers
                     for(int number = 0; number < Numbers.idealInputNumbers.length; ++number){
                         System.out.println(Numbers.getIdealNumber(number) + "\n");
                         System.out.println("\nLooks like: " + network.guessTheResult(Numbers.idealInputNumbers[number]));
@@ -38,18 +38,18 @@ public class Main {
                     }
                     break;
                 }
-                case 4:{ // Выход
+                case 4:{ // Exit
                     saveNetwork(network);
                     System.out.println("\nBye bye!");
                     System.exit(0);
                 }
-                default: // Некорректный ввод
+                default: // Wrong input
                     System.out.println("\nWrong input");
             }
         }
     }
 
-    // Считывание сети из файла
+    // Read network from file
     private static Network readNetwork() {
         Network n;
 
@@ -69,7 +69,7 @@ public class Main {
         return n;
     }
 
-    // Сохранение сети в файл
+    // Save network to file
     private static void saveNetwork(Network network) {
         try {
             FileOutputStream fileOutputStream = new FileOutputStream("NetworkObj.ser");
@@ -86,7 +86,7 @@ public class Main {
         }
     }
 
-    // Читаю из консоли число в виде матрицы 5х3
+    // Read number from console as 5x3 grid
     private static double[] readInput() {
         double[] a = new double[15];
         Scanner scanner = new Scanner(System.in);

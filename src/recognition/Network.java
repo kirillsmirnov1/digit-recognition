@@ -7,52 +7,50 @@ import java.util.stream.IntStream;
 
 public class Network implements Serializable {
 
-    // Количество слоёв
+    // Number of layers in network
     private final int numberOfLayers;
 
-    // Количество нейронов на каждом слое
+    // Number of neurons at every layer of network
     private final int[] layerSizes;
 
-    // Слои нейронов
+    // Values of neurons
     private transient double[][] layers;
 
-    // Отличие последнего слоя от желаемого результата
+    // Difference between last layer and ideal result
     private transient double[] lastLayerDifference;
 
-    // Веса между слоями
+    // Weights of neuron connections
     private double[][][] weights;
 
-    // Коэффициент обучения
+    // Learning coefficient
     private double n = 0.5;
 
-    // Вывод промежуточных результатов в консоль
+    // Do we want to print intermediate results?
     private boolean outputMidResults = true;
 
-    // Конструктор по-умолчанию создает НС с двумя слоями по 15 и 10 нейронов соответственно
+    // Generate default network
     public Network(){
         this(new int[] {15, 10});
     }
 
-    // Конструктор принимает на вход размеры слоев
+    // Generate network with given layers sizes
     public Network(int[] layerSizes){
         this.layerSizes = layerSizes;
         numberOfLayers = layerSizes.length;
 
-        // Инициализирую массив весов
         weights = initWeightMatrix(true);
     }
 
-    // Расчёт выходного слоя от входного
+    // Calculate output layer from given input
     private double[] calculateOutput(double[] input){
         if(input.length != layerSizes[0])
             throw new IllegalArgumentException("Wrong input size");
 
-        // Инициализирую пустой массив слоёв
         layers = new double[numberOfLayers][];
 
         layers[0] = input;
 
-        // Инициализирую каждый слой
+        // Initialize every layer
         for(int layer = 1; layer < numberOfLayers; ++layer){
             layers[layer] = new double[layerSizes[layer]];
         }
@@ -60,12 +58,12 @@ public class Network implements Serializable {
         for(int midLayer = 0; midLayer < weights.length; ++midLayer){
             for(int rightNeuron = 0; rightNeuron < layers[midLayer+1].length; ++rightNeuron){
 
-                // Значение нейрона справа -- сумма произведения нейронов слева на соответствующие веса
+                // Right neuron value = sum of products of left neuron value and corresponding weight
                 for(int leftNeuron = 0; leftNeuron < layers[midLayer].length; ++leftNeuron){
                     layers[midLayer+1][rightNeuron] += layers[midLayer][leftNeuron] * weights[midLayer][leftNeuron][rightNeuron];
                 }
 
-                // Нормализация нейрона
+                // Normalize neuron
                 layers[midLayer+1][rightNeuron] = sigmoid(layers[midLayer+1][rightNeuron]);
             }
         }
@@ -80,25 +78,25 @@ public class Network implements Serializable {
         return layers[numberOfLayers-1];
     }
 
-    // Нормализация
+    // Sigmoid normalization
     private double sigmoid(double v) {
         return 1d / (1d + Math.exp(-v));
     }
 
-    // Подбор результата
+    // Guess the number from given input
     public int guessTheResult(double[] input){
         int lastLayer = numberOfLayers - 1;
 
-        // Самое похожее число
+        // Most similar number
         int nearestNumber = 0;
 
-        // Лучший результат на последнем слое
+        // Biggest neuron value at last layer
         double bestResult = 0d;
 
-        // Считаем последний слой
+        // Calculate last layer
         calculateOutput(input);
 
-        // Ищу нейрон с самым большим значением
+        // Find neuron with max value -- it's probably the right number
         for (int neuron = 0; neuron < layerSizes[lastLayer]; ++neuron){
             if(layers[lastLayer][neuron] > bestResult){
                 nearestNumber = neuron;
@@ -106,11 +104,10 @@ public class Network implements Serializable {
             }
         }
 
-        // Возвращаю самое похожее число
         return nearestNumber;
     }
 
-    // Обучение сети
+    // Teach network by back-propagation once
     public void teachNetwork(int iterations){
 
         System.out.println("\nTeaching network...");
@@ -121,13 +118,13 @@ public class Network implements Serializable {
 
             double[][][] deltaWeights = initWeightMatrix(false);
 
-            // Собираю дельту весов с каждого варианта входных данных
+            // Calculate delta from every possible option
             for(int number = 0; number < Numbers.idealInputNumbers.length; ++number){
                 calculateOutput(Numbers.idealInputNumbers[number]);
                 calculateDifference(number);
 
-                // Только для этой стадии
-                // Когда будет больше одного слоя, обучение будет другим
+                // Only for stage 3
+                // For more than one layer, there will be another way of teaching
                 for(int leftNeuron = 0; leftNeuron < layerSizes[0]; ++leftNeuron){
                     for(int rightNeuron = 0; rightNeuron < layerSizes[1]; ++rightNeuron){
                         deltaWeights[0][leftNeuron][rightNeuron] += n * layers[0][leftNeuron] * lastLayerDifference[rightNeuron];
@@ -135,6 +132,7 @@ public class Network implements Serializable {
                 }
             }
 
+            // Apply delta
             for(int leftNeuron = 0; leftNeuron < layerSizes[0]; ++leftNeuron){
                 for(int rightNeuron = 0; rightNeuron < layerSizes[1]; ++rightNeuron) {
                     weights[0][leftNeuron][rightNeuron] += deltaWeights[0][leftNeuron][rightNeuron] / Numbers.idealInputNumbers.length;
@@ -148,7 +146,7 @@ public class Network implements Serializable {
         System.out.println("\nTeaching finished!");
     }
 
-    // Создает пустую или заполненную случайным числами матрицу весов
+    // Create empty or gaussian-filled weight matrices
     private double[][][] initWeightMatrix(boolean needNumbers) {
         double[][][] w = new double[numberOfLayers - 1][][];
         Random random = new Random();
@@ -166,7 +164,7 @@ public class Network implements Serializable {
         return w;
     }
 
-    // Расчёт разницы последнего слоя нейронов и образца
+    // Calculate difference between given output layer and ideal output layer
     private void calculateDifference(int number) {
         lastLayerDifference = new double[layerSizes[numberOfLayers-1]];
 
