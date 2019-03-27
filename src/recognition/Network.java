@@ -1,9 +1,10 @@
 package recognition;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Random;
 
-public class Network {
+public class Network implements Serializable {
 
     // Количество слоёв
     private final int numberOfLayers;
@@ -12,10 +13,10 @@ public class Network {
     private final int[] layerSizes;
 
     // Слои нейронов
-    private double[][] layers;
+    private transient double[][] layers;
 
     // Отличие последнего слоя от желаемого результата
-    private double[] lastLayerDifference;
+    private transient double[] lastLayerDifference;
 
     // Веса между слоями
     private double[][][] weights;
