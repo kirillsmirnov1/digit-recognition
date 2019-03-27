@@ -90,39 +90,24 @@ public class Network implements Serializable {
         int lastLayer = numberOfLayers - 1;
 
         // Самое похожее число
-        int nearestResult = 0;
-        // Расстояние до этого числа
-        double smallestDistance = Integer.MAX_VALUE;
+        int nearestNumber = 0;
 
-        // Все расстояния
-        double[] distance = new double[Numbers.idealOutputNumbers.length];
+        // Лучший результат на последнем слое
+        double bestResult = 0d;
 
         // Считаем последний слой
         calculateOutput(input);
 
-        // Сверяем каждое число
-        for(int number = 0; number < Numbers.idealOutputNumbers.length; ++number){
-            double localDistance = 0d;
-
-            calculateDifference(number);
-            for (int neuron = 0; neuron < layerSizes[lastLayer]; ++neuron){
-                localDistance += Math.pow(lastLayerDifference[neuron], 2);
+        // Ищу нейрон с самым большим значением
+        for (int neuron = 0; neuron < layerSizes[lastLayer]; ++neuron){
+            if(layers[lastLayer][neuron] > bestResult){
+                nearestNumber = neuron;
+                bestResult = layers[lastLayer][neuron];
             }
-
-            distance[number] = localDistance;
-
-            if(localDistance < smallestDistance){
-                smallestDistance = localDistance;
-                nearestResult = number;
-            }
-        }
-
-        if(outputMidResults){
-            System.out.println("\nDistances:\n" + Arrays.toString(distance));
         }
 
         // Возвращаю самое похожее число
-        return nearestResult;
+        return nearestNumber;
     }
 
     // Обучение сети
