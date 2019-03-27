@@ -17,7 +17,8 @@ public class Main {
             System.out.println("\nWhat do you want?");
             System.out.println("1. Teach the network");
             System.out.println("2. Guess a number");
-            System.out.println("3. Exit");
+            System.out.println("3. Test on ideal numbers");
+            System.out.println("4. Exit");
             System.out.print("Your choice: ");
 
             switch(scanner.nextInt()){
@@ -26,10 +27,18 @@ public class Main {
                     break;
                 }
                 case 2:{ // Отгадать введённый номер
-                    System.out.println("\nLooks like: " + network.guessTheResult(readInput()));
+                    System.out.println("\nLooks like: " + network.guessTheResult(readInput()) + "\n");
                     break;
                 }
-                case 3:{ // Выход
+                case 3:{
+                    for(int number = 0; number < Numbers.idealInputNumbers.length; ++number){
+                        System.out.println(Numbers.getIdealNumber(number) + "\n");
+                        System.out.println("\nLooks like: " + network.guessTheResult(Numbers.idealInputNumbers[number]));
+                        System.out.println("===============================================================");
+                    }
+                    break;
+                }
+                case 4:{ // Выход
                     saveNetwork(network);
                     System.out.println("\nBye bye!");
                     System.exit(0);
@@ -51,7 +60,7 @@ public class Main {
             objectInputStream.close();
             fileInputStream.close();
 
-            System.out.println("Network is ready!");
+            System.out.println("Network loaded and ready!");
 
         } catch (Exception e){
             System.out.println("Error reading network\nGenerating empty");
