@@ -16,9 +16,6 @@ public class Network implements Serializable {
     // Values of neurons
     private transient double[][] layers;
 
-    // Difference between last layer and ideal result
-    private transient double[] lastLayerDifference;
-
     // Weights of neuron connections
     private double[][][] weights;
 
@@ -129,13 +126,13 @@ public class Network implements Serializable {
             // Calculate delta from every possible option
             for(int number = 0; number < Numbers.idealInputNumbers.length; ++number){
                 calculateOutput(Numbers.idealInputNumbers[number]);
-                calculateDifference(number);
+                double[] difference = calculateDifference(Numbers.idealOutputNumbers[number], layers[layerSizes.length-1]);
 
                 // Only for stage 3
                 // For more than one layer, there will be another way of teaching
                 for(int leftNeuron = 0; leftNeuron < layerSizes[0]; ++leftNeuron){
                     for(int rightNeuron = 0; rightNeuron < layerSizes[1]; ++rightNeuron){
-                        deltaWeights[0][leftNeuron][rightNeuron] += n * layers[0][leftNeuron] * lastLayerDifference[rightNeuron];
+                        deltaWeights[0][leftNeuron][rightNeuron] += n * layers[0][leftNeuron] * difference[rightNeuron];
                     }
                 }
             }
@@ -146,7 +143,6 @@ public class Network implements Serializable {
                     weights[0][leftNeuron][rightNeuron] += deltaWeights[0][leftNeuron][rightNeuron] / Numbers.idealInputNumbers.length;
                 }
             }
-
         }
 
         outputMidResults = true;
@@ -170,15 +166,6 @@ public class Network implements Serializable {
         }
 
         return w;
-    }
-
-    // Calculate difference between given output layer and ideal output layer
-    private void calculateDifference(int number) {
-        lastLayerDifference = new double[layerSizes[numberOfLayers-1]];
-
-        for(int i = 0; i < lastLayerDifference.length; ++i){
-            lastLayerDifference[i] = Numbers.idealOutputNumbers[number][i] - layers[numberOfLayers-1][i];
-        }
     }
 
     // Calculate difference between given double arrays
