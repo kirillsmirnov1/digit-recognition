@@ -27,7 +27,7 @@ public class Network implements Serializable {
 
     // Generate default network
     public Network(){
-        this(new int[] {15, 10});
+        this(new int[] {15, 20, 10});
     }
 
     // Generate network with given layers sizes
@@ -126,21 +126,29 @@ public class Network implements Serializable {
             // Calculate delta from every possible option
             for(int number = 0; number < Numbers.idealInputNumbers.length; ++number){
                 calculateOutput(Numbers.idealInputNumbers[number]);
-                double[] difference = calculateDifference(Numbers.idealOutputNumbers[number], layers[layerSizes.length-1]);
 
-                // Only for stage 3
-                // For more than one layer, there will be another way of teaching
-                for(int leftNeuron = 0; leftNeuron < layerSizes[0]; ++leftNeuron){
-                    for(int rightNeuron = 0; rightNeuron < layerSizes[1]; ++rightNeuron){
-                        deltaWeights[0][leftNeuron][rightNeuron] += n * layers[0][leftNeuron] * difference[rightNeuron];
+                for (int midLayer = weights.length - 1; midLayer >= 0; --midLayer) {
+
+                    double[] difference = calculateDifference(  (midLayer == weights.length-1) ?
+                                                                    Numbers.idealOutputNumbers[number] :
+                                                                    calculateIdealOutput(midLayer+1),
+                                                                layers[midLayer+1]);
+
+                    for (int leftNeuron = 0; leftNeuron < layerSizes[midLayer]; ++leftNeuron) {
+                        for (int rightNeuron = 0; rightNeuron < layerSizes[midLayer+1]; ++rightNeuron) {
+                            deltaWeights[midLayer][leftNeuron][rightNeuron] += n * layers[midLayer][leftNeuron] * difference[rightNeuron];
+                        }
                     }
                 }
+
             }
 
             // Apply delta
-            for(int leftNeuron = 0; leftNeuron < layerSizes[0]; ++leftNeuron){
-                for(int rightNeuron = 0; rightNeuron < layerSizes[1]; ++rightNeuron) {
-                    weights[0][leftNeuron][rightNeuron] += deltaWeights[0][leftNeuron][rightNeuron] / Numbers.idealInputNumbers.length;
+            for(int i = 0; i < weights.length; ++i) {
+                for (int leftNeuron = 0; leftNeuron < layerSizes[i]; ++leftNeuron) {
+                    for (int rightNeuron = 0; rightNeuron < layerSizes[i+1]; ++rightNeuron) {
+                        weights[i][leftNeuron][rightNeuron] += deltaWeights[i][leftNeuron][rightNeuron] / Numbers.idealInputNumbers.length;
+                    }
                 }
             }
         }
