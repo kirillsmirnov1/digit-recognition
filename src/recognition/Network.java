@@ -180,4 +180,18 @@ public class Network implements Serializable {
             lastLayerDifference[i] = Numbers.idealOutputNumbers[number][i] - layers[numberOfLayers-1][i];
         }
     }
+
+    // Calculate difference between given double arrays
+    private double[] calculateDifference(double[] ideal, double[] current){
+        if(ideal == null || current == null || ideal.length!=current.length)
+            throw new IllegalArgumentException();
+
+        double[] difference = new double[ideal.length];
+
+        for(int i = 0; i < difference.length; ++i){
+            difference[i] = ideal[i] - current[i];
+        }
+
+        return difference;
+    }
 }
