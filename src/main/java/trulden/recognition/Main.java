@@ -1,4 +1,4 @@
-package recognition;
+package trulden.recognition;
 
 import java.io.*;
 import java.util.Arrays;

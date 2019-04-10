@@ -1,4 +1,4 @@
-package recognition;
+package trulden.recognition;
 
 // Class fo working with input and output numbers
 public class Numbers {
