@@ -181,4 +181,19 @@ public class Network implements Serializable {
 
         return difference;
     }
+
+    // Calculate ideal output for given layer
+    private double[] calculateIdealOutput(int layerNumber) {
+        double[] ideal = new double[layerSizes[layerNumber]];
+
+        for(int leftNeuron = 0; leftNeuron < ideal.length; ++leftNeuron){
+            double sum = 0;
+            for(int rightNeuron = 0; rightNeuron < layerSizes[layerNumber+1]; ++rightNeuron){
+                sum += layers[layerNumber+1][rightNeuron]/weights[layerNumber][leftNeuron][rightNeuron];
+            }
+            ideal[leftNeuron] = sum / layerSizes[layerNumber+1];
+        }
+
+        return ideal;
+    }
 }
