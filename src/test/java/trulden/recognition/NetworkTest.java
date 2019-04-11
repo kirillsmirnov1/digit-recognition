@@ -32,4 +32,9 @@ class NetworkTest {
 
         assertArrayEquals(expect, got);
     }
+
+    @Test
+    void calculateDifferenceTest() {
+        assertArrayEquals(new double[]{-0.5, 0.9}, Network.calculateDifference(new double[]{0.2, 1.1}, new double[]{0.7, 0.2}), 0.00001);
+    }
 }
