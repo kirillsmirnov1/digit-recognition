@@ -93,7 +93,7 @@ public class Network implements Serializable {
     }
 
     // Sigmoid normalization
-    private double sigmoid(double v) {
+    public static double sigmoid(double v) {
         return 1d / (1d + Math.exp(-v));
     }
 
