@@ -3,6 +3,8 @@ package trulden.recognition;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -42,7 +44,10 @@ class NetworkTest {
     }
 
     @Test
-    void calculateDifferenceTest() {
-        assertArrayEquals(new double[]{-0.5, 0.9}, Network.calculateDifference(new double[]{0.2, 1.1}, new double[]{0.7, 0.2}), 0.00001);
+    void calculateDifferenceTest() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        Method calculateDifference = network.getClass().getDeclaredMethod("calculateDifference", double[].class, double[].class);
+        calculateDifference.setAccessible(true);
+
+        assertArrayEquals(new double[]{-0.5, 0.9}, (double[]) calculateDifference.invoke(network, new double[]{0.2, 1.1}, new double[]{0.7, 0.2}), 0.00001);
     }
 }
