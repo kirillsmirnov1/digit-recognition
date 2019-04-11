@@ -2,6 +2,8 @@ package trulden.recognition;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class NetworkTest {
@@ -18,4 +20,16 @@ class NetworkTest {
         main.testNetworkOnIdealNumbers();
     }
 
+    @Test
+    void calculateIdealOutputTest() {
+        double[] right = new double[] {0.3, 0.2, 0.1};
+        double[][] weight = new double[][] {{0.2, 0.1, 0.7}, {1.2, 2.1, 1.1}};
+
+        double[] expect = new double[] {(0.3/0.2 + 0.2/0.1 + 0.1/0.7) / 3d, (0.3/1.2 + 0.2/2.1 + 0.1/1.1) / 3d};
+        double[] got    = Network.calculateIdealOutput(weight, right);
+
+        System.out.println("Expect: " + Arrays.toString(expect) + "\nGot:    " + Arrays.toString(got));
+
+        assertArrayEquals(expect, got);
+    }
 }
