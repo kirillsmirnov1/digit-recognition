@@ -83,6 +83,17 @@ public class Network implements Serializable {
         return layers[numberOfLayers-1];
     }
 
+    private double[][] generateLayers() {
+        double[][] layers = new double[numberOfLayers][];
+
+        // Initialize every layer
+        for(int layer = 0; layer < numberOfLayers; ++layer){
+            layers[layer] = new double[layerSizes[layer]];
+        }
+
+        return layers;
+    }
+
     // Sigmoid normalization
     private double sigmoid(double v) {
         return 1d / (1d + Math.exp(-v));
