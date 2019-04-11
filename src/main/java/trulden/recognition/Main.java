@@ -7,11 +7,12 @@ import java.util.Scanner;
 public class Main {
 
     private static final String NETWORK_OBJECT_FILENAME = "NetworkObj.ser";
+    static Network network;
 
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-        Network network = readNetworkFile();
+        network = readNetworkFile();
 
         while(true){
             System.out.println("\nWhat do you want?\n");
@@ -41,7 +42,7 @@ public class Main {
                     break;
                 }
                 case 4:{ // Saving the network
-                    writeNetworkFile(network);
+                    writeNetworkFile();
                     break;
                 }
                 case 5:{ // Forget the network
@@ -52,7 +53,7 @@ public class Main {
                     break;
                 }
                 case 6:{ // Exit
-                    writeNetworkFile(network);
+                    writeNetworkFile();
                     System.out.println("\nBye bye!");
                     System.exit(0);
                 }
@@ -89,7 +90,7 @@ public class Main {
     }
 
     // Save network to file
-    private static void writeNetworkFile(Network network) {
+    private static void writeNetworkFile() {
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(NETWORK_OBJECT_FILENAME);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
