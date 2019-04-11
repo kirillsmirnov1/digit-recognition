@@ -1,5 +1,6 @@
 package trulden.recognition;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -7,6 +8,13 @@ import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.*;
 
 class NetworkTest {
+
+    static Network network;
+
+    @BeforeAll
+    public static void init(){
+        network = new Network();
+    }
 
     // Test of basic functions
     @Test
