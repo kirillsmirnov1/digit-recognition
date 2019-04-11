@@ -188,7 +188,7 @@ public class Network implements Serializable {
     }
 
     // Calculate difference between given double arrays
-    public static double[] calculateDifference(double[] ideal, double[] current){
+    private static double[] calculateDifference(double[] ideal, double[] current){
         if(ideal == null || current == null || ideal.length!=current.length)
             throw new IllegalArgumentException();
 
