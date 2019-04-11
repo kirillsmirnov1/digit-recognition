@@ -212,7 +212,7 @@ public class Network implements Serializable {
             for(int rightNeuron = 0; rightNeuron < rightIdeal.length; ++rightNeuron){
                 sum += rightIdeal[rightNeuron]/weights[leftNeuron][rightNeuron];
             }
-            leftIdeal[leftNeuron] = sum / (1d * rightIdeal.length);
+            leftIdeal[leftNeuron] = sigmoid( sum / (1d * rightIdeal.length) );
         }
 
         return leftIdeal;

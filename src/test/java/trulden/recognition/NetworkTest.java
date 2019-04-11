@@ -25,7 +25,7 @@ class NetworkTest {
         double[] right = new double[] {0.3, 0.2, 0.1};
         double[][] weight = new double[][] {{0.2, 0.1, 0.7}, {1.2, 2.1, 1.1}};
 
-        double[] expect = new double[] {(0.3/0.2 + 0.2/0.1 + 0.1/0.7) / 3d, (0.3/1.2 + 0.2/2.1 + 0.1/1.1) / 3d};
+        double[] expect = new double[] {Network.sigmoid((0.3/0.2 + 0.2/0.1 + 0.1/0.7) / 3d), Network.sigmoid((0.3/1.2 + 0.2/2.1 + 0.1/1.1) / 3d)};
         double[] got    = Network.calculateIdealOutput(weight, right);
 
         System.out.println("Expect: " + Arrays.toString(expect) + "\nGot:    " + Arrays.toString(got));
