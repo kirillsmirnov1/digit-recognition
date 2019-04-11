@@ -16,6 +16,9 @@ public class Network implements Serializable {
     // Values of neurons
     private transient double[][] layers;
 
+    // Ideal values of neurons
+    private transient double[][] idealLayers;
+
     // Weights of neuron connections
     private double[][][] weights;
 
@@ -128,6 +131,7 @@ public class Network implements Serializable {
         for(int iteration = 0; iteration < iterations; ++iteration){
 
             double[][][] deltaWeights = initWeightMatrix(false);
+            idealLayers = generateLayers();
 
             // Calculate delta from every possible option
             for(int number = 0; number < Numbers.idealInputNumbers.length; ++number){
@@ -135,10 +139,11 @@ public class Network implements Serializable {
 
                 for (int midLayer = weights.length - 1; midLayer >= 0; --midLayer) {
 
-                    double[] difference = calculateDifference(  (midLayer == weights.length-1) ?
-                                                                    Numbers.idealOutputNumbers[number] :
-                                                                    calculateIdealOutput(midLayer+1),
-                                                                layers[midLayer+1]);
+                    idealLayers[midLayer+1] = (midLayer == weights.length-1) ?
+                            Numbers.idealOutputNumbers[number] :
+                            calculateIdealOutput(midLayer+1);
+
+                    double[] difference = calculateDifference(idealLayers[midLayer+1], layers[midLayer+1]);
 
                     for (int leftNeuron = 0; leftNeuron < layerSizes[midLayer]; ++leftNeuron) {
                         for (int rightNeuron = 0; rightNeuron < layerSizes[midLayer+1]; ++rightNeuron) {
@@ -203,7 +208,7 @@ public class Network implements Serializable {
         for(int leftNeuron = 0; leftNeuron < ideal.length; ++leftNeuron){
             double sum = 0;
             for(int rightNeuron = 0; rightNeuron < layerSizes[layerNumber+1]; ++rightNeuron){
-                sum += layers[layerNumber+1][rightNeuron]/weights[layerNumber][leftNeuron][rightNeuron];
+                sum += idealLayers[layerNumber+1][rightNeuron]/weights[layerNumber][leftNeuron][rightNeuron];
             }
             ideal[leftNeuron] = sum / layerSizes[layerNumber+1];
         }
