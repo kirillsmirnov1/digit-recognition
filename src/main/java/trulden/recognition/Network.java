@@ -51,14 +51,9 @@ public class Network implements Serializable {
         if(input.length != layerSizes[0])
             throw new IllegalArgumentException("Wrong input size");
 
-        layers = new double[numberOfLayers][];
+        layers = generateLayers();
 
         layers[0] = input;
-
-        // Initialize every layer
-        for(int layer = 1; layer < numberOfLayers; ++layer){
-            layers[layer] = new double[layerSizes[layer]];
-        }
 
         for(int midLayer = 0; midLayer < weights.length; ++midLayer){
             for(int rightNeuron = 0; rightNeuron < layers[midLayer+1].length; ++rightNeuron){
