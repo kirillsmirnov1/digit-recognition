@@ -1,6 +1,7 @@
 # Compiled class file
 *.class
 out/
+target/
 
 # Log file
 *.log
@@ -29,6 +30,7 @@ git.properties
 #IDEA Project Files
 .idea/
 *.xml
+*.iml
 
 # Dataset files
 *.txt
