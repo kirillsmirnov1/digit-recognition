@@ -141,7 +141,7 @@ public class Network implements Serializable {
 
                     idealLayers[midLayer+1] = (midLayer == weights.length-1) ?
                             Numbers.idealOutputNumbers[number] :
-                            calculateIdealOutput(midLayer+1);
+                            calculateIdealOutput(weights[midLayer+1], idealLayers[midLayer+2]);
 
                     double[] difference = calculateDifference(idealLayers[midLayer+1], layers[midLayer+1]);
 
@@ -201,18 +201,18 @@ public class Network implements Serializable {
         return difference;
     }
 
-    // Calculate ideal output for given layer
-    private double[] calculateIdealOutput(int layerNumber) {
-        double[] ideal = new double[layerSizes[layerNumber]];
+    // Calculate ideal output for layer with given weights and next ideal layer
+    private double[] calculateIdealOutput(double[][] weights, double[] rightIdeal) {
+        double[] leftIdeal = new double[weights.length];
 
-        for(int leftNeuron = 0; leftNeuron < ideal.length; ++leftNeuron){
+        for(int leftNeuron = 0; leftNeuron < leftIdeal.length; ++leftNeuron){
             double sum = 0;
-            for(int rightNeuron = 0; rightNeuron < layerSizes[layerNumber+1]; ++rightNeuron){
-                sum += idealLayers[layerNumber+1][rightNeuron]/weights[layerNumber][leftNeuron][rightNeuron];
+            for(int rightNeuron = 0; rightNeuron < rightIdeal.length; ++rightNeuron){
+                sum += rightIdeal[rightNeuron]/weights[leftNeuron][rightNeuron];
             }
-            ideal[leftNeuron] = sum / layerSizes[layerNumber+1];
+            leftIdeal[leftNeuron] = sum / rightIdeal.length;
         }
 
-        return ideal;
+        return leftIdeal;
     }
 }
