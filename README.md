@@ -6,4 +6,6 @@ Consists of several stages.
 
 # <u>[Stage 4](https://hyperskill.org/projects/4/stages/18/implement)</u>
 
-Same as «Stage 3», but with multiple hidden layers
+Same as «Stage 3», but with multiple hidden layers.
+
+Being honest, it works pretty bad.
