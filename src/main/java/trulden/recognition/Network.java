@@ -202,7 +202,7 @@ public class Network implements Serializable {
     }
 
     // Calculate ideal output for layer with given weights and next ideal layer
-    public static double[] calculateIdealOutput(double[][] weights, double[] rightIdeal) {
+    private static double[] calculateIdealOutput(double[][] weights, double[] rightIdeal) {
         double[] leftIdeal = new double[weights.length];
 
         // lw=r → l=r/w
