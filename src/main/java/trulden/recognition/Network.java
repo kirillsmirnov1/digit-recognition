@@ -205,12 +205,14 @@ public class Network implements Serializable {
     public static double[] calculateIdealOutput(double[][] weights, double[] rightIdeal) {
         double[] leftIdeal = new double[weights.length];
 
+        // lw=r → l=r/w
+
         for(int leftNeuron = 0; leftNeuron < leftIdeal.length; ++leftNeuron){
-            double sum = 0;
+            double sum = 0d;
             for(int rightNeuron = 0; rightNeuron < rightIdeal.length; ++rightNeuron){
                 sum += rightIdeal[rightNeuron]/weights[leftNeuron][rightNeuron];
             }
-            leftIdeal[leftNeuron] = sum / rightIdeal.length;
+            leftIdeal[leftNeuron] = sum / (1d * rightIdeal.length);
         }
 
         return leftIdeal;
