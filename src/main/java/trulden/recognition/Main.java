@@ -26,19 +26,15 @@ public class Main {
 
             switch(scanner.nextInt()){
                 case 1:{ // Teaching network
-                    network.teachNetwork(1000);
+                    teachNetwork();
                     break;
                 }
                 case 2:{ // Guess number
-                    System.out.println("\nLooks like: " + network.guessTheResult(readInput()) + "\n");
+                    guessNumber();
                     break;
                 }
                 case 3:{ // Test network on ideal numbers
-                    for(int number = 0; number < Numbers.idealInputNumbers.length; ++number){
-                        System.out.println(Numbers.getIdealNumber(number) + "\n");
-                        System.out.println("\nLooks like: " + network.guessTheResult(Numbers.idealInputNumbers[number]));
-                        System.out.println("===============================================================");
-                    }
+                    testNetworkOnIdealNumbers();
                     break;
                 }
                 case 4:{ // Saving the network
@@ -46,21 +42,45 @@ public class Main {
                     break;
                 }
                 case 5:{ // Forget the network
-                    System.out.println("\nForgetting the network..");
-                    network = new Network();
-                    removeNetworkFile();
-                    System.out.println("Network successfully forgotten");
+                    forgetTheNetwork();
                     break;
                 }
                 case 6:{ // Exit
-                    writeNetworkFile();
-                    System.out.println("\nBye bye!");
-                    System.exit(0);
+                    exit();
                 }
                 default: // Wrong input
                     System.out.println("\nWrong input");
             }
         }
+    }
+
+    public static void exit() {
+        writeNetworkFile();
+        System.out.println("\nBye bye!");
+        System.exit(0);
+    }
+
+    public static void forgetTheNetwork() {
+        System.out.println("\nForgetting the network..");
+        network = new Network();
+        removeNetworkFile();
+        System.out.println("Network successfully forgotten");
+    }
+
+    public static void testNetworkOnIdealNumbers() {
+        for(int number = 0; number < Numbers.idealInputNumbers.length; ++number){
+            System.out.println(Numbers.getIdealNumber(number) + "\n");
+            System.out.println("\nLooks like: " + network.guessTheResult(Numbers.idealInputNumbers[number]));
+            System.out.println("===============================================================");
+        }
+    }
+
+    public static void guessNumber() {
+        System.out.println("\nLooks like: " + network.guessTheResult(readInput()) + "\n");
+    }
+
+    public static void teachNetwork() {
+        network.teachNetwork(1000);
     }
 
     // Remove network serialized file
