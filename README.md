@@ -37,3 +37,9 @@ Network can learn to distinguish numbers. Using «Delta rule» and «Sigmoid fun
 ![](https://github.com/kirillsmirnov1/digit-recognition/blob/master/res/got9.PNG)
 
 Network is serializable.
+
+# <u>[Stage 4](https://hyperskill.org/projects/4/stages/18/implement)</u>
+
+Same as «Stage 3», but with multiple hidden layers.
+
+Being honest, it works pretty bad.
